@@ -1,7 +1,7 @@
-# CampusCarpool 🚗🎓
-**Intelligent Student Ride-Sharing & Route Optimization Platform**
+# CampusCarpool 🚗⚡🎓
+**Futuristic 3D Smart Mobility & Student Ride-Sharing Platform**
 
-> **Academic Project Submission**  
+> **Move Together. Travel Smarter.**  
 > **Student Name:** AKASH M R  
 > **Student ID:** 2102508522  
 > **Degree Program:** B.Tech / B.E. Information Technology  
@@ -10,20 +10,24 @@
 
 ## 📌 Executive Summary
 
-Students traveling along similar routes to campus often travel alone or uncoordinated, incurring unnecessary fuel costs, exacerbating campus traffic congestion, and contributing to vehicular emissions. **CampusCarpool** is a full-stack web platform specifically engineered for college commuters. It enables students to offer spare seats in their cars or two-wheelers, search for rides along their route with **intelligent approximate route matching**, view real-time compatibility scores, request seats, and manage bookings with **atomic overbooking prevention**.
+Students traveling along similar routes to campus often travel alone or uncoordinated, incurring unnecessary fuel costs, exacerbating campus traffic congestion, and contributing to vehicular emissions. **CampusCarpool** is a futuristic full-stack 3D smart mobility platform specifically engineered for college commuters. It combines **Three.js procedural electric vehicle rendering**, **MapLibre GL JS 3D vector route exploration**, **intelligent approximate route matching**, dynamic compatibility scoring, and **atomic overbooking prevention**.
 
 ---
 
 ## 🎯 Main Objectives & Innovations
 
-1. **Intelligent Approximate Route Matching:**  
-   Unlike rigid equality filters, CampusCarpool leverages token overlap and bi-gram dice coefficients to identify compatible rides even when riders board at intermediate bus stops, metro gates, or landmarks.
-2. **Compatibility Scoring Algorithm:**  
-   Each ride result features a dynamic compatibility percentage ($0\% - 100\%$) broken down into route alignment, travel time proximity window, and driver trust.
-3. **Atomic Concurrency & Overbooking Prevention:**  
+1. **Cinematic 3D Vehicle Landing Page:**  
+   Interactive, mouse-responsive 3D electric vehicle with studio lighting, floating statistics, and neon emerald underglow trails built with Three.js and `@react-three/fiber`.
+2. **Interactive 3D Route Explorer:**  
+   Vector mapping engine powered by MapLibre GL JS displaying animated glowing route polylines, 3D camera pitches, accurate geographic coordinates, and intermediate waypoint markers.
+3. **3D Virtual Garage:**  
+   Interactive 3D vehicle customization for Cars, Sportbikes, and Electric Scooters, syncing driver specifications directly with their student profile.
+4. **Interactive Cabin Visual Seat Booking:**  
+   Vehicle cabin blueprint layout allowing passengers to view available, booked, and selected seats with live shared fare calculation.
+5. **Intelligent Approximate Route Matching:**  
+   Calculates token overlap and bi-gram dice coefficients to discover compatible rides even when riders board at intermediate bus stops, metro gates, or junctions.
+6. **Atomic Concurrency & Overbooking Prevention:**  
    Seat decrementing is executed via MongoDB atomic find-and-modify queries (`$inc: { availableSeats: -seats }`) ensuring no two concurrent passengers can overbook remaining seats.
-4. **Student Identity & Trust:**  
-   Restricted to verified students with roll numbers, college emails, vehicle registrations, and community peer ratings.
 
 ---
 
@@ -31,11 +35,11 @@ Students traveling along similar routes to campus often travel alone or uncoordi
 
 | Layer | Technologies |
 |---|---|
-| **Frontend** | React 18, Vite 6, React Router DOM v6, Custom SVG Icon Architecture, Modern Responsive Design Tokens |
-| **Backend** | Node.js v24, Express.js 4, REST API Architecture, Helmet & Morgan logging |
+| **Frontend** | React 18, Vite 6, React Router DOM v6, Three.js, @react-three/fiber, @react-three/drei, MapLibre GL JS, Framer Motion, GSAP, Responsive Glass Tokens |
+| **Backend** | Node.js v24, Express.js 4, REST API Architecture, Morgan logging, WGS-84 Coordinate Resolver |
 | **Database** | MongoDB v8.3, Mongoose ORM, Atomic Updates & Compound Indexing |
 | **Security & Auth** | JSON Web Tokens (JWT), Bcrypt.js (10 salt rounds), CORS |
-| **Styling** | Professional Navy Blue (`#0f172a`), Emerald Green (`#10b981`), and Pure White Design System |
+| **Design System** | Dark Futuristic Cyber Theme: Background (`#080D18`), Secondary (`#0F172A`), Card (`#111C2E`), Primary Accent (`#10B981`), Secondary Accent (`#34D399`) |
 
 ---
 
