@@ -109,3 +109,4 @@ export const CyberBike3D = ({ color = '#10b981', autoRotate = true }) => {
 };
 
 export default CyberBike3D;
+

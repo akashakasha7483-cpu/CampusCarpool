@@ -98,3 +98,4 @@ export const CyberScooter3D = ({ color = '#10b981', autoRotate = true }) => {
 };
 
 export default CyberScooter3D;
+

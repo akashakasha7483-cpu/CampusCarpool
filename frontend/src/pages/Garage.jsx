@@ -304,3 +304,4 @@ export const Garage = () => {
 };
 
 export default Garage;
+

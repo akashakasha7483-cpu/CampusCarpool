@@ -393,3 +393,4 @@ export const InteractiveSeatPicker = ({ ride, onClose, onSuccess }) => {
 };
 
 export default InteractiveSeatPicker;
+

@@ -100,3 +100,4 @@ export const NeonLightTrails = ({ color = '#00ff88' }) => {
 };
 
 export default NeonLightTrails;
+
