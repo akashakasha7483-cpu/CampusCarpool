@@ -1,0 +1,49 @@
+# Render Blueprint for CampusCarpool Full-Stack Deployment
+# Student: AKASH M R (Student ID: 2102508522)
+# Project: CampusCarpool - Futuristic 3D Smart Mobility Platform
+
+services:
+  # 1. Backend REST API Web Service
+  - type: web
+    name: campuscarpool-backend
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        fromService:
+          type: web
+          name: campuscarpool-frontend
+          property: host
+
+  # 2. Frontend React / Vite Static Site
+  - type: web
+    name: campuscarpool-frontend
+    runtime: static
+    plan: free
+    region: oregon
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: campuscarpool-backend
+          property: host

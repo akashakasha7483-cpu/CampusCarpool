@@ -74,7 +74,10 @@ async function spawnLocalMongod(port = 27017) {
 
 // Connect to MongoDB using Mongoose
 const connectDB = async () => {
-  const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/campuscarpool';
+  const mongoUri =
+    process.env.MONGODB_URI ||
+    process.env.MONGO_URI ||
+    'mongodb://127.0.0.1:27017/campuscarpool';
   console.log(`[Database] Connecting to MongoDB: ${mongoUri.replace(/:([^:@]+)@/, ':****@')}`);
 
   try {

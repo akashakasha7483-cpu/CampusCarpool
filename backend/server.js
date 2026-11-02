@@ -11,8 +11,19 @@ dotenv.config();
 const app = express();
 
 // Middleware
+// Production & Development CORS Configuration
+const clientUrl = process.env.CLIENT_URL ? process.env.CLIENT_URL.replace(/\/$/, '') : null;
+
 app.use(cors({
-  origin: '*',
+  origin: (origin, callback) => {
+    // Allow server-to-server, health check, Postman, and curl probes
+    if (!origin) return callback(null, true);
+    if (!clientUrl || clientUrl === '*' || origin === clientUrl || origin.includes('onrender.com') || origin.includes('localhost') || origin.includes('127.0.0.1')) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
