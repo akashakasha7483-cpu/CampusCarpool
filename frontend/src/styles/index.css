@@ -589,3 +589,152 @@ input, select, textarea {
   gap: 0.6rem;
   border-bottom: 1px solid var(--border-subtle);
 }
+
+/* ========================================================================= */
+/* AETHER GLASSMORPHISM SAAS DASHBOARD STYLES (Dribbble Design Parity)       */
+/* ========================================================================= */
+
+.aether-dashboard-container {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0.5rem 0 3rem;
+}
+
+.aether-glow-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: 
+    radial-gradient(circle at 8% 25%, rgba(16, 185, 129, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 92% 35%, rgba(168, 85, 247, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 50%);
+}
+
+.aether-glass-card {
+  background: rgba(13, 22, 38, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.aether-glass-card:hover {
+  border-color: rgba(52, 211, 153, 0.35);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55), 0 0 25px rgba(16, 185, 129, 0.12);
+  transform: translateY(-2px);
+}
+
+.aether-glass-card-glow-green {
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(16, 185, 129, 0.18), inset 0 0 15px rgba(16, 185, 129, 0.05);
+}
+
+.aether-glass-card-glow-purple {
+  border-color: rgba(168, 85, 247, 0.35);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(168, 85, 247, 0.18), inset 0 0 15px rgba(168, 85, 247, 0.05);
+}
+
+.aether-glass-card-glow-cyan {
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.18), inset 0 0 15px rgba(56, 189, 248, 0.05);
+}
+
+/* Equalizer Bars Animation */
+.eq-bar {
+  width: 4px;
+  background: #00ff88;
+  border-radius: 999px;
+  box-shadow: 0 0 8px #00ff88;
+  animation: eqPulse 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes eqPulse {
+  0% { height: 6px; opacity: 0.4; }
+  50% { height: 26px; opacity: 1; }
+  100% { height: 12px; opacity: 0.7; }
+}
+
+/* Top Console Search Bar */
+.aether-search-input {
+  background: rgba(8, 13, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  padding: 8px 14px 8px 36px;
+  color: #f8fafc;
+  font-size: 0.82rem;
+  outline: none;
+  width: 100%;
+  max-width: 320px;
+  transition: all 0.2s;
+}
+
+.aether-search-input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+  background: rgba(8, 13, 24, 0.95);
+}
+
+/* Nav Pills */
+.aether-nav-pill {
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #94a3b8;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.aether-nav-pill:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.aether-nav-pill.active {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(52, 211, 153, 0.35);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
+}
+
+/* Glass Table */
+.aether-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.aether-table th {
+  text-align: left;
+  padding: 10px 14px;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.aether-table td {
+  padding: 12px 14px;
+  color: #cbd5e1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.aether-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}

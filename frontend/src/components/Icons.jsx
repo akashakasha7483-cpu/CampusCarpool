@@ -354,3 +354,61 @@ export const Phone = (props) => (
     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
   </BaseIcon>
 );
+
+export const TrendingUp = (props) => (
+  <BaseIcon {...props}>
+    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+    <polyline points="16 7 22 7 22 13" />
+  </BaseIcon>
+);
+
+export const BarChart3 = (props) => (
+  <BaseIcon {...props}>
+    <path d="M3 3v18h18" />
+    <path d="M18 17V9" />
+    <path d="M13 17V5" />
+    <path d="M8 17v-3" />
+  </BaseIcon>
+);
+
+export const PieChart = (props) => (
+  <BaseIcon {...props}>
+    <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+    <path d="M22 12A10 10 0 0 0 12 2v10z" />
+  </BaseIcon>
+);
+
+export const Bell = (props) => (
+  <BaseIcon {...props}>
+    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+  </BaseIcon>
+);
+
+export const Globe = (props) => (
+  <BaseIcon {...props}>
+    <circle cx="12" cy="12" r="10" />
+    <line x1="2" x2="22" y1="12" y2="12" />
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+  </BaseIcon>
+);
+
+export const Activity = (props) => (
+  <BaseIcon {...props}>
+    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+  </BaseIcon>
+);
+
+export const Layers = (props) => (
+  <BaseIcon {...props}>
+    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+    <polyline points="2 17 12 22 22 17" />
+    <polyline points="2 12 12 17 22 12" />
+  </BaseIcon>
+);
+
+export const ChevronDown = (props) => (
+  <BaseIcon {...props}>
+    <polyline points="6 9 12 15 18 9" />
+  </BaseIcon>
+);
