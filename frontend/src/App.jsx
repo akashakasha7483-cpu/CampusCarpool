@@ -16,6 +16,8 @@ import MyRides from './pages/MyRides';
 import MyRequests from './pages/MyRequests';
 import ReceivedRequests from './pages/ReceivedRequests';
 import Profile from './pages/Profile';
+import RouteExplorer from './pages/RouteExplorer';
+import Garage from './pages/Garage';
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/find-rides" element={<FindRides />} />
+              <Route path="/route-explorer" element={<RouteExplorer />} />
 
               {/* Protected Student Routes */}
               <Route
@@ -36,6 +39,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/garage"
+                element={
+                  <ProtectedRoute>
+                    <Garage />
                   </ProtectedRoute>
                 }
               />

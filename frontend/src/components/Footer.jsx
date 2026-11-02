@@ -14,9 +14,12 @@ const Footer = () => {
               Campus<span style={{ color: '#34d399' }}>Carpool</span>
             </span>
           </div>
+          <p style={{ color: '#34d399', fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.4rem' }}>
+            Move Together. Travel Smarter.
+          </p>
           <p style={{ fontSize: '0.88rem', lineHeight: '1.6', color: '#94a3b8' }}>
-            An intelligent college academic carpooling system matching students based on approximate routes,
-            travel windows, and seat availability.
+            A futuristic 3D smart mobility platform connecting campus commuters through intelligent approximate
+            route matching, geospatial 3D vector mapping, and atomic seat reservation.
           </p>
         </div>
 

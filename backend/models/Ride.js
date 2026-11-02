@@ -17,8 +17,21 @@ const rideSchema = new mongoose.Schema(
       required: [true, 'Destination / Drop-off point is required'],
       trim: true,
     },
+    sourceCoords: {
+      type: [Number],
+      required: false,
+    },
+    destinationCoords: {
+      type: [Number],
+      required: false,
+    },
     waypoints: {
       type: [String],
+      default: [],
+    },
+    waypointsCoords: {
+      type: [[Number]],
+      required: false,
       default: [],
     },
     date: {

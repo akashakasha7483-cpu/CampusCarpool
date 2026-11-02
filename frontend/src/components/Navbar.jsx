@@ -46,6 +46,11 @@ const Navbar = () => {
             Find Rides
           </NavLink>
 
+          <NavLink to="/route-explorer" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            <Compass size={16} />
+            3D Map
+          </NavLink>
+
           {isAuthenticated ? (
             <>
               <NavLink to="/post-ride" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
@@ -56,6 +61,11 @@ const Navbar = () => {
               <NavLink to="/dashboard" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                 <Compass size={16} />
                 Dashboard
+              </NavLink>
+
+              <NavLink to="/garage" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+                <Car size={16} />
+                3D Garage
               </NavLink>
 
               <NavLink to="/my-rides" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
@@ -120,10 +130,16 @@ const Navbar = () => {
           <NavLink to="/find-rides" className="nav-link" onClick={closeMenu}>
             <Search size={16} /> Find Rides
           </NavLink>
+          <NavLink to="/route-explorer" className="nav-link" onClick={closeMenu}>
+            <Compass size={16} /> 3D Route Map
+          </NavLink>
           {isAuthenticated ? (
             <>
               <NavLink to="/dashboard" className="nav-link" onClick={closeMenu}>
                 <Compass size={16} /> Dashboard
+              </NavLink>
+              <NavLink to="/garage" className="nav-link" onClick={closeMenu}>
+                <Car size={16} /> 3D Vehicle Garage
               </NavLink>
               <NavLink to="/post-ride" className="nav-link" onClick={closeMenu}>
                 <PlusCircle size={16} /> Post Ride

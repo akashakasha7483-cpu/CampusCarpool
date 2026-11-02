@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Car,
   Search,
@@ -12,22 +12,23 @@ import {
   ArrowRight,
   Sparkles,
   CheckCircle2,
+  Zap,
 } from '../components/Icons';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../api/client';
 import RideCard from '../components/RideCard';
-import RequestModal from '../components/RequestModal';
+import InteractiveSeatPicker from '../components/InteractiveSeatPicker';
+import VehicleCanvas3D from '../components/3d/VehicleCanvas3D';
 
-const Dashboard = () => {
+export const Dashboard = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   const [stats, setStats] = useState({
     myRidesCount: 0,
     myRequestsCount: 0,
     receivedPendingCount: 0,
   });
-  const [activeRides, setActiveRides] = useState([]);
+  const [recommendedRides, setRecommendedRides] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedRide, setSelectedRide] = useState(null);
   const [successToast, setSuccessToast] = useState('');
@@ -43,7 +44,7 @@ const Dashboard = () => {
         ]);
 
         if (ridesRes.success) {
-          setActiveRides(ridesRes.rides.slice(0, 4));
+          setRecommendedRides(ridesRes.rides.slice(0, 4));
         }
 
         setStats({
@@ -61,146 +62,185 @@ const Dashboard = () => {
     loadDashboardData();
   }, []);
 
+  const userVehicleType = user?.vehicleInfo?.vehicleType !== 'None' ? user?.vehicleInfo?.vehicleType : 'Car';
+
   return (
     <div>
       {successToast && (
-        <div className="alert alert-success" style={{ position: 'sticky', top: '80px', zIndex: 90 }}>
+        <div className="alert alert-success" style={{ position: 'sticky', top: '80px', zIndex: 100 }}>
           <CheckCircle2 size={18} />
           <span>{successToast}</span>
         </div>
       )}
 
-      {/* Welcome Banner */}
+      {/* Futuristic 3D Welcome Hero */}
       <div
+        className="card"
         style={{
-          background: 'linear-gradient(135deg, #090e1a 0%, #0f172a 60%, #1e3a8a 100%)',
-          color: '#ffffff',
-          borderRadius: '20px',
-          padding: '2.25rem',
-          marginBottom: '2rem',
-          boxShadow: '0 10px 30px rgba(15, 23, 42, 0.25)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1.5rem',
+          background: 'linear-gradient(135deg, rgba(17, 28, 46, 0.95) 0%, rgba(8, 13, 24, 0.98) 100%)',
+          border: '1px solid rgba(52, 211, 153, 0.3)',
+          borderRadius: '24px',
+          padding: '2.5rem',
+          marginBottom: '2.5rem',
+          boxShadow: '0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.15)',
         }}
       >
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
-            <span
-              style={{
-                background: 'rgba(16, 185, 129, 0.2)',
-                border: '1px solid rgba(16, 185, 129, 0.4)',
-                color: '#34d399',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                padding: '2px 8px',
-                borderRadius: '999px',
-              }}
-            >
-              STUDENT ID: {user?.studentId || '2102508522'}
-            </span>
-            <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>{user?.department}</span>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '2rem',
+            alignItems: 'center',
+          }}
+        >
+          {/* Welcome Text */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
+              <span
+                style={{
+                  background: 'rgba(16, 185, 129, 0.15)',
+                  border: '1px solid rgba(52, 211, 153, 0.4)',
+                  color: '#34d399',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  padding: '3px 10px',
+                  borderRadius: '999px',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                STUDENT ID: {user?.studentId || '2102508522'}
+              </span>
+              <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
+                {user?.department || 'Information Technology'}
+              </span>
+            </div>
+
+            <h1 style={{ fontSize: '2.2rem', fontWeight: 900, color: '#f8fafc', letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
+              Welcome Back, {user?.name || 'Student'}!
+            </h1>
+            <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.75rem' }}>
+              Your campus mobility portal is synchronized. Track seat requests, explore real-time routes, or post
+              an empty seat offer in seconds.
+            </p>
+
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <Link to="/find-rides" className="btn btn-primary">
+                <Search size={16} /> Find Rides
+              </Link>
+              <Link to="/post-ride" className="btn btn-secondary">
+                <PlusCircle size={16} /> Post Ride
+              </Link>
+              <Link to="/route-explorer" className="btn btn-outline-green">
+                <Compass size={16} /> 3D Route Map
+              </Link>
+              <Link to="/garage" className="btn btn-navy">
+                <Car size={16} /> Vehicle Garage
+              </Link>
+            </div>
           </div>
 
-          <h1 style={{ fontSize: '1.85rem', fontWeight: 800, letterSpacing: '-0.02em' }}>
-            Welcome, {user?.name || 'Student'}!
-          </h1>
-          <p style={{ color: '#cbd5e1', fontSize: '0.92rem', marginTop: '0.35rem' }}>
-            Ready to commute? Search compatible campus routes or share seats on your trip today.
-          </p>
-        </div>
-
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-          <Link to="/find-rides" className="btn btn-primary">
-            <Search size={16} /> Find Rides
-          </Link>
-          <Link to="/post-ride" className="btn btn-secondary">
-            <PlusCircle size={16} /> Post a Ride
-          </Link>
+          {/* 3D Vehicle Preview Thumbnail */}
+          <div style={{ width: '100%', position: 'relative' }}>
+            <VehicleCanvas3D
+              vehicleType={userVehicleType}
+              color="#10b981"
+              autoRotate={true}
+              interactive={true}
+              height="260px"
+              cameraDistance={4.2}
+            />
+            <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
+              <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                Active Vehicle: <strong style={{ color: '#34d399' }}>Cyber {userVehicleType}</strong> ({user?.vehicleInfo?.model || 'Configured'})
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Stats Cards Grid */}
+      {/* Floating Animated Counters Grid */}
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
           gap: '1.25rem',
-          marginBottom: '2.5rem',
+          marginBottom: '3rem',
         }}
       >
         <Link to="/my-rides" className="card card-interactive" style={{ textDecoration: 'none' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-            <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: 600 }}>Hosted Rides</span>
-            <div style={{ background: '#ecfdf5', color: '#059669', padding: '8px', borderRadius: '10px' }}>
+            <span style={{ color: '#94a3b8', fontSize: '0.85rem', fontWeight: 700 }}>Hosted Rides</span>
+            <div style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', padding: '8px', borderRadius: '12px' }}>
               <Car size={18} />
             </div>
           </div>
-          <p style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a' }}>{stats.myRidesCount}</p>
-          <span style={{ fontSize: '0.78rem', color: '#10b981', fontWeight: 600 }}>View all your posted rides &rarr;</span>
+          <p style={{ fontSize: '2.2rem', fontWeight: 900, color: '#f8fafc' }}>
+            {user?.ridesHosted ?? stats.myRidesCount}
+          </p>
+          <span style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 600 }}>Manage active rides &rarr;</span>
         </Link>
 
         <Link to="/my-requests" className="card card-interactive" style={{ textDecoration: 'none' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-            <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: 600 }}>Seat Requests Sent</span>
-            <div style={{ background: '#eff6ff', color: '#1d4ed8', padding: '8px', borderRadius: '10px' }}>
+            <span style={{ color: '#94a3b8', fontSize: '0.85rem', fontWeight: 700 }}>Joined Rides</span>
+            <div style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '8px', borderRadius: '12px' }}>
               <Send size={18} />
             </div>
           </div>
-          <p style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a' }}>{stats.myRequestsCount}</p>
-          <span style={{ fontSize: '0.78rem', color: '#1e3a8a', fontWeight: 600 }}>Track request status &rarr;</span>
+          <p style={{ fontSize: '2.2rem', fontWeight: 900, color: '#f8fafc' }}>
+            {user?.ridesJoined ?? stats.myRequestsCount}
+          </p>
+          <span style={{ fontSize: '0.78rem', color: '#38bdf8', fontWeight: 600 }}>Track seat requests &rarr;</span>
         </Link>
 
         <Link to="/received-requests" className="card card-interactive" style={{ textDecoration: 'none' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-            <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: 600 }}>Pending Approvals</span>
-            <div style={{ background: '#fffbeb', color: '#d97706', padding: '8px', borderRadius: '10px' }}>
+            <span style={{ color: '#94a3b8', fontSize: '0.85rem', fontWeight: 700 }}>Pending Approvals</span>
+            <div style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', padding: '8px', borderRadius: '12px' }}>
               <Inbox size={18} />
             </div>
           </div>
-          <p style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a' }}>{stats.receivedPendingCount}</p>
-          <span style={{ fontSize: '0.78rem', color: '#d97706', fontWeight: 600 }}>
-            {stats.receivedPendingCount > 0 ? 'Requires your action &rarr;' : 'All caught up &rarr;'}
+          <p style={{ fontSize: '2.2rem', fontWeight: 900, color: '#f8fafc' }}>{stats.receivedPendingCount}</p>
+          <span style={{ fontSize: '0.78rem', color: '#fbbf24', fontWeight: 600 }}>
+            {stats.receivedPendingCount > 0 ? 'Requires your review &rarr;' : 'All caught up &rarr;'}
           </span>
         </Link>
 
         <div className="card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-            <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: 600 }}>Student Trust Rating</span>
-            <div style={{ background: '#fef3c7', color: '#d97706', padding: '8px', borderRadius: '10px' }}>
-              <Star size={18} fill="#d97706" />
+            <span style={{ color: '#94a3b8', fontSize: '0.85rem', fontWeight: 700 }}>Trust Rating</span>
+            <div style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', padding: '8px', borderRadius: '12px' }}>
+              <Star size={18} fill="#fbbf24" />
             </div>
           </div>
-          <p style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a' }}>{user?.rating || '4.8'}/5.0</p>
-          <span style={{ fontSize: '0.78rem', color: '#64748b' }}>Verified College Commuter</span>
+          <p style={{ fontSize: '2.2rem', fontWeight: 900, color: '#f8fafc' }}>{user?.rating || '4.8'}/5.0</p>
+          <span style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 600 }}>Verified Student Commuter</span>
         </div>
       </div>
 
-      {/* Live Campus Feed */}
-      <div style={{ marginBottom: '2.5rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+      {/* Recommended Campus Rides */}
+      <div style={{ marginBottom: '3rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
           <div>
-            <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#0f172a' }}>
-              Latest Campus Rides Available
+            <h2 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#f8fafc' }}>
+              Recommended Campus Corridors
             </h2>
-            <p style={{ color: '#64748b', fontSize: '0.85rem' }}>
-              Real-time routes posted by peer students
+            <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>
+              Peer student rides traveling along major college commute routes
             </p>
           </div>
           <Link to="/find-rides" className="btn btn-secondary btn-sm">
-            Explore All Rides <ArrowRight size={14} />
+            View All Rides <ArrowRight size={14} />
           </Link>
         </div>
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '2rem', color: '#64748b' }}>
-            Loading available rides...
+          <div style={{ textAlign: 'center', padding: '2.5rem', color: '#94a3b8' }}>
+            Loading recommendations...
           </div>
-        ) : activeRides.length > 0 ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem' }}>
-            {activeRides.map((ride) => (
+        ) : recommendedRides.length > 0 ? (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+            {recommendedRides.map((ride) => (
               <RideCard
                 key={ride._id}
                 ride={ride}
@@ -212,7 +252,7 @@ const Dashboard = () => {
         ) : (
           <div className="card" style={{ textAlign: 'center', padding: '2.5rem' }}>
             <Car size={36} color="#94a3b8" style={{ margin: '0 auto 0.75rem' }} />
-            <p style={{ color: '#64748b', fontSize: '0.9rem' }}>No open rides right now.</p>
+            <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>No open rides right now.</p>
             <Link to="/post-ride" className="btn btn-primary btn-sm" style={{ marginTop: '0.75rem' }}>
               Post A Ride
             </Link>
@@ -220,8 +260,9 @@ const Dashboard = () => {
         )}
       </div>
 
+      {/* Interactive Seat Picker */}
       {selectedRide && (
-        <RequestModal
+        <InteractiveSeatPicker
           ride={selectedRide}
           onClose={() => setSelectedRide(null)}
           onSuccess={(msg) => {

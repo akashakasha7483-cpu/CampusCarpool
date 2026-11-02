@@ -10,13 +10,16 @@ import {
   Clock,
   ArrowRight,
   Zap,
+  CheckCircle2,
+  Compass,
 } from '../components/Icons';
 import { api } from '../api/client';
 import RideCard from '../components/RideCard';
-import RequestModal from '../components/RequestModal';
+import InteractiveSeatPicker from '../components/InteractiveSeatPicker';
+import VehicleCanvas3D from '../components/3d/VehicleCanvas3D';
 import { useAuth } from '../context/AuthContext';
 
-const Home = () => {
+export const Home = () => {
   const [source, setSource] = useState('');
   const [destination, setDestination] = useState('');
   const [recentRides, setRecentRides] = useState([]);
@@ -64,248 +67,316 @@ const Home = () => {
     <div>
       {/* Toast */}
       {successToast && (
-        <div className="alert alert-success" style={{ position: 'sticky', top: '80px', zIndex: 90 }}>
-          <ShieldCheck size={18} />
+        <div className="alert alert-success" style={{ position: 'sticky', top: '80px', zIndex: 100 }}>
+          <CheckCircle2 size={18} />
           <span>{successToast}</span>
         </div>
       )}
 
-      {/* Hero Section */}
+      {/* Cinematic 3D Hero Section */}
       <section
         style={{
-          background: 'radial-gradient(ellipse at 80% 20%, rgba(16, 185, 129, 0.15), transparent 50%), linear-gradient(180deg, #0f172a 0%, #1e293b 100%)',
-          color: '#ffffff',
-          borderRadius: '24px',
-          padding: '3.5rem 2rem',
-          marginBottom: '3rem',
-          boxShadow: '0 20px 40px rgba(15, 23, 42, 0.3)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          minHeight: '620px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+          gap: '2.5rem',
+          alignItems: 'center',
+          marginBottom: '4rem',
+          padding: '2rem 0',
         }}
       >
-        <div style={{ maxWidth: '850px', margin: '0 auto', textAlign: 'center' }}>
+        {/* Left Column: Hero Typography & CTA */}
+        <div>
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              background: 'rgba(16, 185, 129, 0.18)',
-              border: '1px solid rgba(52, 211, 153, 0.4)',
+              background: 'rgba(16, 185, 129, 0.15)',
+              border: '1px solid rgba(52, 211, 153, 0.35)',
               color: '#34d399',
-              padding: '0.35rem 0.95rem',
+              padding: '0.4rem 1rem',
               borderRadius: '999px',
-              fontSize: '0.85rem',
-              fontWeight: 700,
+              fontSize: '0.82rem',
+              fontWeight: 800,
+              letterSpacing: '0.04em',
               marginBottom: '1.5rem',
             }}
           >
-            <Sparkles size={15} />
-            <span>Academic Capstone &bull; AKASH M R (2102508522)</span>
+            <Sparkles size={14} />
+            <span>FUTURISTIC 3D SMART MOBILITY &bull; AKASH M R (2102508522)</span>
           </div>
 
           <h1
             style={{
-              fontSize: 'clamp(2.2rem, 5vw, 3.4rem)',
-              fontWeight: 800,
-              lineHeight: 1.15,
+              fontSize: 'clamp(2.5rem, 5.5vw, 4rem)',
+              fontWeight: 900,
+              lineHeight: 1.1,
               letterSpacing: '-0.03em',
-              marginBottom: '1.25rem',
+              color: '#f8fafc',
+              marginBottom: '1rem',
             }}
           >
-            Intelligent Student Carpooling Along <span style={{ color: '#34d399' }}>Similar Routes</span>
+            CAMPUS<span style={{ color: '#10b981' }}>CARPOOL</span>
           </h1>
 
           <p
             style={{
-              fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-              color: '#cbd5e1',
-              lineHeight: 1.6,
-              marginBottom: '2.5rem',
-              maxWidth: '700px',
-              margin: '0 auto 2.5rem',
+              fontSize: '1.45rem',
+              fontWeight: 700,
+              color: '#34d399',
+              marginBottom: '1.25rem',
+              letterSpacing: '-0.01em',
             }}
           >
-            Connect with campus commuters travelling your way. Cut daily travel costs, find instant compatible rides
-            via approximate route matching, and share empty seats safely.
+            Move Together. Travel Smarter.
           </p>
 
-          {/* Quick Search Card */}
-          <div
+          <p
             style={{
-              background: '#ffffff',
-              borderRadius: '16px',
-              padding: '1.5rem',
-              boxShadow: '0 20px 30px rgba(0, 0, 0, 0.25)',
-              textAlign: 'left',
-              color: '#0f172a',
+              fontSize: '1.05rem',
+              color: '#94a3b8',
+              lineHeight: 1.7,
+              marginBottom: '2rem',
+              maxWidth: '520px',
             }}
           >
-            <form onSubmit={handleSearchSubmit}>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr)) auto',
-                  gap: '1rem',
-                  alignItems: 'flex-end',
-                }}
-              >
-                <div>
-                  <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <MapPin size={14} color="#10b981" />
-                    Pickup / From
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="e.g. Silk Board, Electronic City"
-                    value={source}
-                    onChange={(e) => setSource(e.target.value)}
-                  />
-                </div>
+            Share your journey. Reduce travel costs. Connect with fellow students through intelligent approximate
+            route matching and live 3D geospatial mobility.
+          </p>
 
-                <div>
-                  <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <MapPin size={14} color="#1e3a8a" />
-                    Drop-off / To
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="e.g. Campus Main Gate, Tech Block"
-                    value={destination}
-                    onChange={(e) => setDestination(e.target.value)}
-                  />
-                </div>
-
-                <div>
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    style={{ height: '48px', width: '100%', padding: '0 1.75rem' }}
-                  >
-                    <Search size={18} />
-                    Find Compatible Rides
-                  </button>
-                </div>
-              </div>
-            </form>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+            <Link to="/find-rides" className="btn btn-primary btn-lg">
+              <Search size={18} />
+              Explore Rides
+            </Link>
+            <Link to="/post-ride" className="btn btn-secondary btn-lg">
+              <Car size={18} />
+              Post a Ride
+            </Link>
+            <Link to="/route-explorer" className="btn btn-outline-green btn-lg">
+              <Compass size={18} />
+              3D Route Explorer
+            </Link>
           </div>
+
+          {/* Floating Metric Badges */}
+          <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', paddingTop: '1.25rem', borderTop: '1px solid var(--border-subtle)' }}>
+            <div>
+              <p style={{ fontSize: '1.6rem', fontWeight: 900, color: '#f8fafc' }}>100%</p>
+              <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Student Verified</span>
+            </div>
+            <div>
+              <p style={{ fontSize: '1.6rem', fontWeight: 900, color: '#34d399' }}>95%</p>
+              <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Route Accuracy</span>
+            </div>
+            <div>
+              <p style={{ fontSize: '1.6rem', fontWeight: 900, color: '#f8fafc' }}>₹0</p>
+              <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Middleman Commission</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Interactive 3D Cyber Car */}
+        <div style={{ width: '100%', position: 'relative' }}>
+          <VehicleCanvas3D
+            vehicleType="Car"
+            color="#10b981"
+            autoRotate={true}
+            interactive={true}
+            height="480px"
+          />
+        </div>
+      </section>
+
+      {/* Futuristic Route Search Bar */}
+      <section style={{ marginBottom: '4rem' }}>
+        <div
+          className="card"
+          style={{
+            background: 'rgba(17, 28, 46, 0.85)',
+            backdropFilter: 'blur(16px)',
+            border: '1px solid rgba(52, 211, 153, 0.3)',
+            boxShadow: '0 15px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(16, 185, 129, 0.1)',
+            padding: '2rem',
+          }}
+        >
+          <div style={{ marginBottom: '1.25rem' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f8fafc' }}>
+              Instant Route & Corridor Search
+            </h3>
+            <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>
+              Find peer drivers traveling along your campus route, bus stand or metro stop.
+            </p>
+          </div>
+
+          <form onSubmit={handleSearchSubmit}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr)) auto',
+                gap: '1.25rem',
+                alignItems: 'flex-end',
+              }}
+            >
+              <div className="form-group" style={{ marginBottom: 0 }}>
+                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <MapPin size={14} color="#10b981" /> Pickup Location
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="e.g. Silk Board, Electronic City, HSR"
+                  value={source}
+                  onChange={(e) => setSource(e.target.value)}
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: 0 }}>
+                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <MapPin size={14} color="#38bdf8" /> Destination
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="e.g. Campus Main Gate"
+                  value={destination}
+                  onChange={(e) => setDestination(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  style={{ height: '48px', width: '100%', padding: '0 2rem' }}
+                >
+                  <Search size={18} />
+                  Match Rides
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </section>
 
       {/* Feature Highlights Grid */}
-      <section style={{ marginBottom: '3.5rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em' }}>
-            Built Specifically For College Commuters
+      <section style={{ marginBottom: '4rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#f8fafc', letterSpacing: '-0.02em' }}>
+            Next-Gen Smart Mobility Architecture
           </h2>
-          <p style={{ color: '#64748b', fontSize: '0.95rem' }}>
-            Solving uncoordinated travel with intelligent algorithmic matchmaking
+          <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>
+            Intelligent algorithmic matchmaking backed by atomic database concurrency
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
           <div className="card">
             <div
               style={{
-                width: '46px',
-                height: '46px',
-                borderRadius: '12px',
-                background: '#ecfdf5',
-                color: '#059669',
+                width: '48px',
+                height: '48px',
+                borderRadius: '14px',
+                background: 'rgba(16, 185, 129, 0.15)',
+                color: '#34d399',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '1rem',
+                marginBottom: '1.25rem',
+                border: '1px solid rgba(52, 211, 153, 0.3)',
               }}
             >
               <Zap size={24} />
             </div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.5rem', color: '#0f172a' }}>
-              Intelligent Route Matching
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#f8fafc', marginBottom: '0.5rem' }}>
+              Intelligent Dice Matching
             </h3>
-            <p style={{ color: '#64748b', fontSize: '0.88rem', lineHeight: '1.6' }}>
-              Uses token-based and bi-gram dice proximity algorithms to identify compatible intermediate pickups,
-              waypoints, and travel time windows.
+            <p style={{ color: '#94a3b8', fontSize: '0.88rem', lineHeight: '1.6' }}>
+              Calculates bi-gram dice coefficients and token overlap to discover rides even when riders board at intermediate bus stops, metro gates, or junctions.
             </p>
           </div>
 
           <div className="card">
             <div
               style={{
-                width: '46px',
-                height: '46px',
-                borderRadius: '12px',
-                background: '#eff6ff',
-                color: '#1d4ed8',
+                width: '48px',
+                height: '48px',
+                borderRadius: '14px',
+                background: 'rgba(56, 189, 248, 0.15)',
+                color: '#38bdf8',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '1rem',
+                marginBottom: '1.25rem',
+                border: '1px solid rgba(56, 189, 248, 0.3)',
+              }}
+            >
+              <Compass size={24} />
+            </div>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#f8fafc', marginBottom: '0.5rem' }}>
+              Geospatial 3D Map
+            </h3>
+            <p style={{ color: '#94a3b8', fontSize: '0.88rem', lineHeight: '1.6' }}>
+              Vector map explorer powered by MapLibre GL JS renders animated neon route polylines, 3D camera pitches, and pickup markers with accurate coordinates.
+            </p>
+          </div>
+
+          <div className="card">
+            <div
+              style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '14px',
+                background: 'rgba(245, 158, 11, 0.15)',
+                color: '#fbbf24',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '1.25rem',
+                border: '1px solid rgba(245, 158, 11, 0.3)',
               }}
             >
               <ShieldCheck size={24} />
             </div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.5rem', color: '#0f172a' }}>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#f8fafc', marginBottom: '0.5rem' }}>
               Atomic Overbooking Control
             </h3>
-            <p style={{ color: '#64748b', fontSize: '0.88rem', lineHeight: '1.6' }}>
-              Database-level atomic find-and-modify operations prevent duplicate requests and seat overbooking,
-              safely decrementing available seats upon confirmation.
-            </p>
-          </div>
-
-          <div className="card">
-            <div
-              style={{
-                width: '46px',
-                height: '46px',
-                borderRadius: '12px',
-                background: '#fef3c7',
-                color: '#d97706',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '1rem',
-              }}
-            >
-              <Users size={24} />
-            </div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.5rem', color: '#0f172a' }}>
-              Student-to-Student Trust
-            </h3>
-            <p style={{ color: '#64748b', fontSize: '0.88rem', lineHeight: '1.6' }}>
-              Registered students with roll numbers, departments, vehicle details, and community ratings for
-              peace of mind on every commute.
+            <p style={{ color: '#94a3b8', fontSize: '0.88rem', lineHeight: '1.6' }}>
+              Database-level atomic find-and-modify queries guarantee seat availability integrity, preventing double bookings and race conditions upon confirmation.
             </p>
           </div>
         </div>
       </section>
 
       {/* Available Rides Showcase */}
-      <section style={{ marginBottom: '3.5rem' }}>
+      <section style={{ marginBottom: '4rem' }}>
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: '1.5rem',
+            marginBottom: '1.75rem',
             flexWrap: 'wrap',
-            gap: '0.75rem',
+            gap: '1rem',
           }}
         >
           <div>
-            <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0f172a' }}>Active Upcoming Rides</h2>
-            <p style={{ color: '#64748b', fontSize: '0.9rem' }}>
-              Browse recently posted student rides with available capacity
+            <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: '#f8fafc' }}>
+              Active Campus Rides
+            </h2>
+            <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
+              Real-time student carpools with open seat capacity
             </p>
           </div>
+
           <Link to="/find-rides" className="btn btn-secondary">
             View All Rides <ArrowRight size={16} />
           </Link>
         </div>
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '3rem 0', color: '#64748b' }}>
+          <div style={{ textAlign: 'center', padding: '3rem 0', color: '#94a3b8' }}>
             Loading available rides...
           </div>
         ) : recentRides.length > 0 ? (
@@ -320,20 +391,13 @@ const Home = () => {
             ))}
           </div>
         ) : (
-          <div
-            className="card"
-            style={{
-              textAlign: 'center',
-              padding: '3rem 1.5rem',
-              background: '#ffffff',
-            }}
-          >
-            <Car size={40} color="#94a3b8" style={{ margin: '0 auto 1rem' }} />
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0f172a', marginBottom: '0.5rem' }}>
-              No Active Rides Posted Yet
+          <div className="card" style={{ textAlign: 'center', padding: '3.5rem 1.5rem' }}>
+            <Car size={44} color="#94a3b8" style={{ margin: '0 auto 1rem' }} />
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#f8fafc', marginBottom: '0.5rem' }}>
+              No Open Rides Found
             </h3>
-            <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-              Be the first student to post a ride and offer spare seats along your route!
+            <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+              Be the first student to publish a ride offer today!
             </p>
             <Link to="/post-ride" className="btn btn-primary">
               Post Your First Ride
@@ -342,9 +406,9 @@ const Home = () => {
         )}
       </section>
 
-      {/* Request Modal */}
+      {/* Interactive Seat Picker Modal */}
       {selectedRide && (
-        <RequestModal
+        <InteractiveSeatPicker
           ride={selectedRide}
           onClose={() => setSelectedRide(null)}
           onSuccess={(msg) => {

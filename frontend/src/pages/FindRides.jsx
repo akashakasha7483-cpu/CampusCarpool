@@ -14,7 +14,7 @@ import {
 } from '../components/Icons';
 import { api } from '../api/client';
 import RideCard from '../components/RideCard';
-import RequestModal from '../components/RequestModal';
+import InteractiveSeatPicker from '../components/InteractiveSeatPicker';
 import { useAuth } from '../context/AuthContext';
 
 const FindRides = () => {
@@ -268,9 +268,9 @@ const FindRides = () => {
         </div>
       )}
 
-      {/* Request Modal */}
+      {/* Interactive Seat Picker */}
       {selectedRide && (
-        <RequestModal
+        <InteractiveSeatPicker
           ride={selectedRide}
           onClose={() => setSelectedRide(null)}
           onSuccess={(msg) => {

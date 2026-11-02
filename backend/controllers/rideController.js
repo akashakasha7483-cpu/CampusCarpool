@@ -1,6 +1,7 @@
 const Ride = require('../models/Ride');
 const RideRequest = require('../models/RideRequest');
 const { calculateRideCompatibility } = require('../utils/routeMatcher');
+const { resolveCoords } = require('../utils/geoHelper');
 
 // @desc    Post a new ride
 // @route   POST /api/rides
@@ -47,7 +48,10 @@ const postRide = async (req, res, next) => {
       driver: req.user._id,
       source: source.trim(),
       destination: destination.trim(),
+      sourceCoords: req.body.sourceCoords || resolveCoords(source.trim()) || undefined,
+      destinationCoords: req.body.destinationCoords || resolveCoords(destination.trim()) || undefined,
       waypoints: parsedWaypoints,
+      waypointsCoords: req.body.waypointsCoords || parsedWaypoints.map((w) => resolveCoords(w)).filter(Boolean),
       date: date.trim(),
       time: time.trim(),
       seatsTotal: seats,
@@ -113,6 +117,15 @@ const searchRides = async (req, res, next) => {
 
     const scoredRides = rides.map((rideDoc) => {
       const rideObj = rideDoc.toObject();
+      if (!rideObj.sourceCoords) {
+        rideObj.sourceCoords = resolveCoords(rideObj.source) || [77.6229, 12.9177];
+      }
+      if (!rideObj.destinationCoords) {
+        rideObj.destinationCoords = resolveCoords(rideObj.destination) || [77.6848, 12.9237];
+      }
+      if (!rideObj.waypointsCoords || rideObj.waypointsCoords.length === 0) {
+        rideObj.waypointsCoords = (rideObj.waypoints || []).map((w) => resolveCoords(w)).filter(Boolean);
+      }
       const compatibility = calculateRideCompatibility(searchFilter, rideObj);
       return {
         ...rideObj,
@@ -149,10 +162,20 @@ const getAllActiveRides = async (req, res, next) => {
       .sort({ createdAt: -1 })
       .limit(30);
 
+    const populatedRides = rides.map((r) => {
+      const obj = r.toObject();
+      if (!obj.sourceCoords) obj.sourceCoords = resolveCoords(obj.source) || [77.6229, 12.9177];
+      if (!obj.destinationCoords) obj.destinationCoords = resolveCoords(obj.destination) || [77.6848, 12.9237];
+      if (!obj.waypointsCoords || obj.waypointsCoords.length === 0) {
+        obj.waypointsCoords = (obj.waypoints || []).map((w) => resolveCoords(w)).filter(Boolean);
+      }
+      return obj;
+    });
+
     res.status(200).json({
       success: true,
-      count: rides.length,
-      rides,
+      count: populatedRides.length,
+      rides: populatedRides,
     });
   } catch (error) {
     next(error);
