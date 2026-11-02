@@ -1,12 +1,11 @@
-import React, { Suspense, useState, useEffect, useMemo } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Float, Sparkles, ContactShadows, Html } from '@react-three/drei';
 import RealisticCar3D from './RealisticCar3D';
-import CyberCar3D from './CyberCar3D';
 import CyberBike3D from './CyberBike3D';
 import CyberScooter3D from './CyberScooter3D';
 import NeonLightTrails from './NeonLightTrails';
-import { Car, AlertCircle, RefreshCw } from '../Icons';
+import { Car } from '../Icons';
 
 /**
  * 3D Loading Fallback Component
@@ -20,20 +19,20 @@ function LoadingVehicleSpinner() {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '12px',
-          background: 'rgba(8, 13, 24, 0.88)',
-          border: '1px solid rgba(52, 211, 153, 0.4)',
+          background: 'rgba(8, 13, 24, 0.92)',
+          border: '1px solid rgba(52, 211, 153, 0.45)',
           borderRadius: '16px',
-          padding: '16px 24px',
-          backdropFilter: 'blur(12px)',
-          boxShadow: '0 0 30px rgba(16, 185, 129, 0.25)',
+          padding: '16px 26px',
+          backdropFilter: 'blur(14px)',
+          boxShadow: '0 0 35px rgba(16, 185, 129, 0.3)',
           whiteSpace: 'nowrap',
         }}
       >
         <div
           style={{
-            width: '32px',
-            height: '32px',
-            border: '3px solid rgba(16, 185, 129, 0.2)',
+            width: '34px',
+            height: '34px',
+            border: '3px solid rgba(16, 185, 129, 0.25)',
             borderTopColor: '#00ff88',
             borderRadius: '50%',
             animation: 'spin 0.8s linear infinite',
@@ -45,12 +44,12 @@ function LoadingVehicleSpinner() {
         <span
           style={{
             color: '#34d399',
-            fontSize: '0.8rem',
+            fontSize: '0.82rem',
             fontWeight: 800,
             letterSpacing: '0.08em',
           }}
         >
-          INITIALIZING 3D SMART CAR...
+          INITIALIZING 3D SMART MOBILITY...
         </span>
       </div>
     </Html>
@@ -58,7 +57,7 @@ function LoadingVehicleSpinner() {
 }
 
 /**
- * Error Boundary Fallback for WebGL / Model Loading
+ * WebGL Detection Fallback Card
  */
 function FallbackVehicleCard({ type, color }) {
   return (
@@ -71,35 +70,35 @@ function FallbackVehicleCard({ type, color }) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(8, 13, 24, 0.95) 70%)',
-        borderRadius: '20px',
-        border: '1px solid rgba(52, 211, 153, 0.25)',
+        background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(8, 13, 24, 0.95) 70%)',
+        borderRadius: '24px',
+        border: '1px solid rgba(52, 211, 153, 0.3)',
         padding: '2rem',
         textAlign: 'center',
       }}
     >
       <div
         style={{
-          width: '80px',
-          height: '80px',
-          borderRadius: '20px',
-          background: 'rgba(16, 185, 129, 0.15)',
-          border: '1px solid rgba(52, 211, 153, 0.4)',
+          width: '84px',
+          height: '84px',
+          borderRadius: '22px',
+          background: 'rgba(16, 185, 129, 0.18)',
+          border: '1px solid rgba(52, 211, 153, 0.45)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: color || '#10b981',
           marginBottom: '1rem',
-          boxShadow: '0 0 25px rgba(16, 185, 129, 0.3)',
+          boxShadow: '0 0 30px rgba(16, 185, 129, 0.35)',
         }}
       >
-        <Car size={42} strokeWidth={2} />
+        <Car size={44} strokeWidth={2} />
       </div>
-      <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#f8fafc', marginBottom: '0.4rem' }}>
+      <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#f8fafc', marginBottom: '0.4rem' }}>
         Smart Electric {type || 'Vehicle'}
       </h3>
-      <p style={{ color: '#94a3b8', fontSize: '0.88rem', maxWidth: '340px' }}>
-        Interactive 3D mobility active &bull; Low carbon campus transport &bull; Verified student rides
+      <p style={{ color: '#94a3b8', fontSize: '0.88rem', maxWidth: '360px' }}>
+        Interactive 3D mobility active &bull; Shared campus transit &bull; Verified student rides
       </p>
     </div>
   );
@@ -110,7 +109,7 @@ export const VehicleCanvas3D = ({
   color = '#10b981',
   autoRotate = true,
   interactive = true,
-  cameraDistance = 5.2,
+  cameraDistance = 5.0,
   height = '480px',
 }) => {
   const [hasWebGL, setHasWebGL] = useState(true);
@@ -136,9 +135,8 @@ export const VehicleCanvas3D = ({
     }
   }, []);
 
-  // Compute responsive vehicle scale and camera position
   const isMobile = screenWidth < 768;
-  const responsiveScale = isMobile ? 0.76 : 0.92;
+  const responsiveScale = isMobile ? 0.8 : 0.95;
   const responsiveCamDistance = isMobile ? cameraDistance * 1.15 : cameraDistance;
 
   if (!hasWebGL) {
@@ -172,16 +170,16 @@ export const VehicleCanvas3D = ({
         position: 'relative',
         borderRadius: '24px',
         overflow: 'hidden',
-        background: 'radial-gradient(circle at 50% 45%, #0d1527 0%, #070c17 65%, #050811 100%)',
-        border: '1px solid rgba(16, 185, 129, 0.22)',
-        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(16, 185, 129, 0.1)',
+        background: 'radial-gradient(circle at 50% 40%, #17243b 0%, #0c1526 55%, #060a14 100%)',
+        border: '1px solid rgba(16, 185, 129, 0.28)',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(16, 185, 129, 0.15)',
       }}
     >
       <Canvas
         shadows
         camera={{
-          position: [responsiveCamDistance * 0.72, 1.9, responsiveCamDistance * 0.9],
-          fov: 44,
+          position: [responsiveCamDistance * 0.7, 1.6, responsiveCamDistance * 0.85],
+          fov: 42,
         }}
         gl={{
           antialias: true,
@@ -189,61 +187,68 @@ export const VehicleCanvas3D = ({
           powerPreference: 'high-performance',
         }}
       >
-        {/* Dark Studio Environment Lights */}
-        <ambientLight intensity={0.7} color="#cbd5e1" />
+        {/* ============================================================ */}
+        {/* AUTOMOTIVE STUDIO ILLUMINATION (High visibility & contrast)  */}
+        {/* ============================================================ */}
 
-        {/* Studio Key Light: White Crisp Highlights on Car Body */}
+        {/* Ambient base lighting to reveal body volume */}
+        <ambientLight intensity={1.8} color="#e2e8f0" />
+
+        {/* Studio Key Light: Bright white specular glints on metallic body */}
         <directionalLight
           position={[6, 9, 6]}
-          intensity={2.4}
+          intensity={3.8}
           color="#ffffff"
           castShadow
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
         />
 
-        {/* Soft Cool Fill Light */}
-        <directionalLight position={[-6, 4, -4]} intensity={1.3} color="#93c5fd" />
+        {/* Front Three-Quarter Fill Light */}
+        <directionalLight position={[-6, 5, 5]} intensity={2.8} color="#bae6fd" />
+
+        {/* Overhead Softbox Ceiling Light */}
+        <directionalLight position={[0, 9, 0]} intensity={2.2} color="#ffffff" />
 
         {/* Signature Emerald Studio Rim Light (matching reference image) */}
-        <directionalLight position={[0, 6, -7]} intensity={3.0} color="#00ff88" />
+        <directionalLight position={[-3, 6, -7]} intensity={4.2} color="#00ff88" />
 
-        {/* Front Projector Fill */}
-        <directionalLight position={[0, 1.5, 6]} intensity={1.1} color="#6ee7b7" />
+        {/* Front Projector Ground Fill */}
+        <directionalLight position={[0, 1.2, 5]} intensity={2.0} color="#6ee7b7" />
 
-        {/* Dynamic Glowing Neon Light Trails (matching reference) */}
+        {/* Dynamic Glowing Neon Light Trails */}
         {vehicleType === 'Car' && <NeonLightTrails color="#00ff88" />}
 
         {/* Floating atmospheric cyber particles */}
-        <Sparkles count={38} scale={7} size={2.2} speed={0.35} color="#00ff88" opacity={0.65} />
+        <Sparkles count={42} scale={7.5} size={2.4} speed={0.35} color="#00ff88" opacity={0.7} />
 
         {/* Wet Reflective Dark Studio Floor */}
         <mesh position={[0, -0.015, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-          <circleGeometry args={[9, 64]} />
+          <circleGeometry args={[9.5, 64]} />
           <meshStandardMaterial
-            color="#070c16"
-            roughness={0.22}
-            metalness={0.82}
+            color="#09101d"
+            roughness={0.2}
+            metalness={0.8}
           />
         </mesh>
 
-        {/* Realistic Soft Contact Shadows beneath car */}
+        {/* Soft Contact Shadows beneath car */}
         <ContactShadows
           position={[0, 0, 0]}
-          opacity={0.8}
-          scale={7.5}
-          blur={1.8}
+          opacity={0.85}
+          scale={8.0}
+          blur={1.6}
           far={3.5}
-          color="#03060c"
+          color="#020408"
         />
 
-        {/* Orbit Controls with Damping for Smooth Mouse Drag Rotation */}
+        {/* Orbit Controls with Smooth Damping */}
         {interactive && (
           <OrbitControls
             enableZoom={true}
-            minDistance={2.8}
+            minDistance={2.6}
             maxDistance={8.5}
-            maxPolarAngle={Math.PI / 2 - 0.04} // Keep above floor
+            maxPolarAngle={Math.PI / 2 - 0.04}
             minPolarAngle={0.15}
             enablePan={false}
             enableDamping={true}
@@ -254,7 +259,7 @@ export const VehicleCanvas3D = ({
 
         {/* Progressive Loading Fallback */}
         <Suspense fallback={<LoadingVehicleSpinner />}>
-          <Float speed={1.1} rotationIntensity={0.08} floatIntensity={0.12}>
+          <Float speed={1.0} rotationIntensity={0.06} floatIntensity={0.1}>
             {renderVehicle()}
           </Float>
         </Suspense>
@@ -267,7 +272,7 @@ export const VehicleCanvas3D = ({
             position: 'absolute',
             bottom: '14px',
             right: '18px',
-            background: 'rgba(8, 13, 24, 0.85)',
+            background: 'rgba(8, 13, 24, 0.88)',
             border: '1px solid rgba(52, 211, 153, 0.35)',
             borderRadius: '999px',
             padding: '5px 14px',
@@ -280,7 +285,7 @@ export const VehicleCanvas3D = ({
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
           }}
         >
           <span
@@ -296,19 +301,19 @@ export const VehicleCanvas3D = ({
         </div>
       )}
 
-      {/* Futuristic Vehicle Watermark */}
+      {/* Vehicle Watermark */}
       <div
         style={{
           position: 'absolute',
           top: '14px',
           left: '18px',
-          background: 'rgba(8, 13, 24, 0.75)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'rgba(8, 13, 24, 0.8)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
           borderRadius: '999px',
-          padding: '4px 12px',
-          fontSize: '0.7rem',
-          color: '#94a3b8',
-          fontWeight: 700,
+          padding: '4px 14px',
+          fontSize: '0.72rem',
+          color: '#cbd5e1',
+          fontWeight: 800,
           letterSpacing: '0.04em',
           backdropFilter: 'blur(8px)',
           pointerEvents: 'none',
