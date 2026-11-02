@@ -36,12 +36,27 @@ export const RouteExplorer = () => {
           source: searchParams.get('source') || '',
           destination: searchParams.get('destination') || '',
         };
+        let ridesList = [];
         const res = await api.searchRides(queryParams);
-        if (res.success && res.rides) {
-          setRides(res.rides);
-          if (res.rides.length > 0) {
-            setSelectedRide(res.rides[0]);
+        if (res.success && res.rides && res.rides.length > 0) {
+          ridesList = res.rides;
+        } else {
+          // If no specific match, fallback to all active campus rides
+          const allRes = await api.getActiveRides();
+          if (allRes.success && allRes.rides) {
+            ridesList = allRes.rides;
           }
+        }
+        setRides(ridesList);
+        if (ridesList.length > 0) {
+          const srcParam = searchParams.get('source');
+          const destParam = searchParams.get('destination');
+          const matched = ridesList.find(
+            (r) =>
+              (!srcParam || r.source.toLowerCase().includes(srcParam.toLowerCase())) &&
+              (!destParam || r.destination.toLowerCase().includes(destParam.toLowerCase()))
+          );
+          setSelectedRide(matched || ridesList[0]);
         }
       } catch (err) {
         console.error('Error fetching route explorer rides:', err);
@@ -234,3 +249,4 @@ export const RouteExplorer = () => {
 };
 
 export default RouteExplorer;
+

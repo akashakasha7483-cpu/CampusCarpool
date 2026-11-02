@@ -117,13 +117,13 @@ const searchRides = async (req, res, next) => {
 
     const scoredRides = rides.map((rideDoc) => {
       const rideObj = rideDoc.toObject();
-      if (!rideObj.sourceCoords) {
+      if (!rideObj.sourceCoords || !Array.isArray(rideObj.sourceCoords) || rideObj.sourceCoords.length < 2) {
         rideObj.sourceCoords = resolveCoords(rideObj.source) || [77.6229, 12.9177];
       }
-      if (!rideObj.destinationCoords) {
+      if (!rideObj.destinationCoords || !Array.isArray(rideObj.destinationCoords) || rideObj.destinationCoords.length < 2) {
         rideObj.destinationCoords = resolveCoords(rideObj.destination) || [77.6848, 12.9237];
       }
-      if (!rideObj.waypointsCoords || rideObj.waypointsCoords.length === 0) {
+      if (!rideObj.waypointsCoords || !Array.isArray(rideObj.waypointsCoords) || rideObj.waypointsCoords.length === 0) {
         rideObj.waypointsCoords = (rideObj.waypoints || []).map((w) => resolveCoords(w)).filter(Boolean);
       }
       const compatibility = calculateRideCompatibility(searchFilter, rideObj);
@@ -164,9 +164,13 @@ const getAllActiveRides = async (req, res, next) => {
 
     const populatedRides = rides.map((r) => {
       const obj = r.toObject();
-      if (!obj.sourceCoords) obj.sourceCoords = resolveCoords(obj.source) || [77.6229, 12.9177];
-      if (!obj.destinationCoords) obj.destinationCoords = resolveCoords(obj.destination) || [77.6848, 12.9237];
-      if (!obj.waypointsCoords || obj.waypointsCoords.length === 0) {
+      if (!obj.sourceCoords || !Array.isArray(obj.sourceCoords) || obj.sourceCoords.length < 2) {
+        obj.sourceCoords = resolveCoords(obj.source) || [77.6229, 12.9177];
+      }
+      if (!obj.destinationCoords || !Array.isArray(obj.destinationCoords) || obj.destinationCoords.length < 2) {
+        obj.destinationCoords = resolveCoords(obj.destination) || [77.6848, 12.9237];
+      }
+      if (!obj.waypointsCoords || !Array.isArray(obj.waypointsCoords) || obj.waypointsCoords.length === 0) {
         obj.waypointsCoords = (obj.waypoints || []).map((w) => resolveCoords(w)).filter(Boolean);
       }
       return obj;
