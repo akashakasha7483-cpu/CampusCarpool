@@ -1,5 +1,4 @@
 # Render Blueprint for CampusCarpool Full-Stack Deployment
-# Student: AKASH M R (Student ID: 2102508522)
 # Project: CampusCarpool - Futuristic 3D Smart Mobility Platform
 
 services:
@@ -33,7 +32,6 @@ services:
     name: campuscarpool-frontend
     runtime: static
     plan: free
-    region: oregon
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -47,4 +45,3 @@ services:
           type: web
           name: campuscarpool-backend
           property: host
-
