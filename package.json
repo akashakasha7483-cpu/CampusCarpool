@@ -1,0 +1,21 @@
+{
+  "name": "campuscarpool",
+  "version": "1.0.0",
+  "description": "CampusCarpool - Academic College Project by AKASH M R (2102508522)",
+  "scripts": {
+    "start": "node run.js",
+    "dev": "node run.js",
+    "seed": "npm --prefix backend run seed",
+    "test:api": "npm --prefix backend run test:api",
+    "build": "npm --prefix frontend run build"
+  },
+  "keywords": [
+    "campuscarpool",
+    "ride-sharing",
+    "route-matching",
+    "academic-project",
+    "mern-stack"
+  ],
+  "author": "AKASH M R (2102508522)"
+}
+
