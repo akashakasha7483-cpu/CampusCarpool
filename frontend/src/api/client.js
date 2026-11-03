@@ -5,18 +5,31 @@ function getApiBaseUrl() {
     return '/api';
   }
 
-  // Prepend protocol if Render provides only a bare hostname
   let url = raw;
-  if (!/^https?:\/\//i.test(url)) {
-    url = url.startsWith('localhost') || url.startsWith('127.0.0.1')
-      ? `http://${url}`
-      : `https://${url}`;
+
+  // 1. Strip protocol if present to inspect the host
+  let protocol = '';
+  if (/^https?:\/\//i.test(url)) {
+    const match = url.match(/^(https?:\/\/)(.*)/i);
+    protocol = match[1];
+    url = match[2];
   }
 
-  // Strip trailing slashes
+  // 2. If Render injected an internal service name without TLD (e.g. 'campuscarpool-backend-qzd0')
+  if (!url.includes('.') && !url.startsWith('localhost')) {
+    url = `${url}.onrender.com`;
+  }
+
+  // 3. Restore or add appropriate protocol
+  if (!protocol) {
+    protocol = (url.startsWith('localhost') || url.startsWith('127.0.0.1')) ? 'http://' : 'https://';
+  }
+  url = protocol + url;
+
+  // 4. Strip trailing slashes
   url = url.replace(/\/+$/, '');
 
-  // Avoid duplicate /api prefix
+  // 5. Avoid duplicate /api prefix
   if (!url.endsWith('/api')) {
     url = `${url}/api`;
   }
