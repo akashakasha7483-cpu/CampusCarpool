@@ -30,13 +30,13 @@ const Login = () => {
     }
   };
 
-  // Demo autofill helper for academic demonstration
+  // Demo autofill helper for demonstration
   const handleAutofill = (type) => {
     if (type === 'driver') {
-      setEmail('akash@college.edu');
+      setEmail('driver@college.edu');
       setPassword('password123');
     } else {
-      setEmail('priya@college.edu');
+      setEmail('passenger@college.edu');
       setPassword('password123');
     }
   };
@@ -126,7 +126,7 @@ const Login = () => {
               style={{ fontSize: '0.75rem' }}
             >
               <UserCheck size={13} color="#10b981" />
-              Fill Driver (Akash)
+              Fill Demo Driver
             </button>
             <button
               type="button"

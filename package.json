@@ -1,7 +1,7 @@
 {
   "name": "campuscarpool",
   "version": "1.0.0",
-  "description": "CampusCarpool - Academic College Project by AKASH M R (2102508522)",
+  "description": "CampusCarpool - Smart Mobility and Ride Sharing Platform",
   "scripts": {
     "start": "node run.js",
     "dev": "node run.js",
@@ -16,6 +16,6 @@
     "academic-project",
     "mern-stack"
   ],
-  "author": "AKASH M R (2102508522)"
+  "author": "CampusCarpool Team"
 }
 

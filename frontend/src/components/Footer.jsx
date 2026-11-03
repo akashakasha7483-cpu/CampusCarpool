@@ -25,17 +25,13 @@ const Footer = () => {
 
         <div>
           <h4 style={{ color: '#ffffff', fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.85rem' }}>
-            Academic Credentials
+            Campus Platform
           </h4>
           <ul style={{ listStyle: 'none', fontSize: '0.88rem', lineHeight: '2', color: '#94a3b8' }}>
-            <li>
-              Student Name: <strong style={{ color: '#ffffff' }}>AKASH M R</strong>
-            </li>
-            <li>
-              Student ID: <strong className="student-tag">2102508522</strong>
-            </li>
-            <li>Project: Full-Stack MERN Ride Sharing & Route Optimization</li>
-            <li>Department: Information Technology</li>
+            <li>Safe & Verified Student Commuting</li>
+            <li>Real-time Seat Reservations</li>
+            <li>Interactive 3D Route Explorer</li>
+            <li>Zero-Emission Green Transit</li>
           </ul>
         </div>
 
@@ -59,10 +55,10 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <div>
-          &copy; {new Date().getFullYear()} CampusCarpool &bull; College Academic Capstone Project.
+          &copy; {new Date().getFullYear()} CampusCarpool &bull; Futuristic Smart Mobility Platform.
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-          Crafted by <span className="student-tag">AKASH M R (2102508522)</span>
+          Crafted for <span className="student-tag">Campus Students</span>
         </div>
       </div>
     </footer>

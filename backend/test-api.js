@@ -48,19 +48,26 @@ async function runTests() {
   let rideId = '';
   let requestId = '';
 
-  // 1. Health Check
+  // 1. Health Check & Privacy Verification
   const health = await request('GET', '/api/health');
-  console.log('[1/12] Health Check:', health.status, health.data.project, health.data.student);
+  console.log('[1/12] Health Check:', health.status, health.data.project);
   if (health.status !== 200) throw new Error('Health check failed');
+  if (health.data.student !== undefined) {
+    throw new Error('Privacy check failed: Health endpoint must not expose student name or student ID!');
+  }
+  if (!health.data.database || health.data.database.connected !== true) {
+    throw new Error('Health check failed: Database not connected');
+  }
+  console.log('       Privacy Verification: PASSED (No student name or student ID in /api/health)');
 
-  // 2. Register Driver (AKASH M R)
+  // 2. Register Driver
   const uniqueSuffix = Date.now();
-  const driverEmail = `akash.${uniqueSuffix}@college.edu`;
+  const driverEmail = `driver.${uniqueSuffix}@college.edu`;
   const regDriver = await request('POST', '/api/auth/register', {
-    name: 'AKASH M R',
+    name: 'Campus Driver',
     email: driverEmail,
     password: 'password123',
-    studentId: '2102508522',
+    studentId: `DRV-${uniqueSuffix.toString().slice(-4)}`,
     department: 'Information Technology',
     phone: '9876543210',
     vehicleInfo: {
@@ -68,7 +75,7 @@ async function runTests() {
       model: 'Honda City',
       registrationNumber: 'KA-01-MJ-2026',
     },
-    bio: 'Senior IT student commuting daily via Silk Board and HSR Layout.',
+    bio: 'College student commuting daily via Silk Board and HSR Layout.',
   });
   console.log('[2/12] Register Driver:', regDriver.status, regDriver.data.message);
   if (regDriver.status !== 201) throw new Error('Driver registration failed');

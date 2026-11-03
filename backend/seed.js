@@ -21,12 +21,12 @@ const seedData = async () => {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash('password123', salt);
 
-    // 1. Primary Student & Project Creator: AKASH M R
-    const akash = await User.create({
-      name: 'AKASH M R',
-      email: 'akash@college.edu',
+    // 1. Primary Demo Driver
+    const primaryDriver = await User.create({
+      name: 'Campus Driver',
+      email: 'driver@college.edu',
       password: passwordHash,
-      studentId: '2102508522',
+      studentId: 'DRV-2026-001',
       department: 'Information Technology',
       phone: '9876543210',
       vehicleInfo: {
@@ -34,7 +34,7 @@ const seedData = async () => {
         model: 'Honda City',
         registrationNumber: 'KA-01-MJ-2026',
       },
-      bio: 'Senior IT student commuting daily along Silk Board and HSR Layout.',
+      bio: 'College student commuting daily along Silk Board and HSR Layout.',
       rating: 4.9,
       ridesHosted: 8,
       ridesJoined: 2,
@@ -102,9 +102,9 @@ const seedData = async () => {
     dayAfter.setDate(dayAfter.getDate() + 2);
     const dayAfterStr = dayAfter.toISOString().split('T')[0];
 
-    // Ride 1 by AKASH M R (Silk Board -> Campus Main Gate via HSR & Koramangala)
+    // Ride 1 by Campus Driver (Silk Board -> Campus Main Gate via HSR & Koramangala)
     const ride1 = await Ride.create({
-      driver: akash._id,
+      driver: primaryDriver._id,
       source: 'Silk Board Junction',
       destination: 'Campus Main Gate',
       waypoints: ['HSR Layout 5th Sector', 'Koramangala Sony World Signal'],
@@ -153,9 +153,9 @@ const seedData = async () => {
       status: 'active',
     });
 
-    // Ride 4 by AKASH M R (Evening return: Campus -> Silk Board)
+    // Ride 4 by Campus Driver (Evening return: Campus -> Silk Board)
     const ride4 = await Ride.create({
-      driver: akash._id,
+      driver: primaryDriver._id,
       source: 'Campus Main Gate',
       destination: 'Silk Board Junction',
       waypoints: ['Koramangala Water Tank', 'HSR BDA Complex'],
@@ -171,11 +171,11 @@ const seedData = async () => {
     });
 
     console.log('[Seed] Creating demo ride requests...');
-    // Request 1: Priya booked 1 seat on Akash's ride (Accepted)
+    // Request 1: Priya booked 1 seat on Driver's ride (Accepted)
     await RideRequest.create({
       ride: ride1._id,
       passenger: priya._id,
-      driver: akash._id,
+      driver: primaryDriver._id,
       seatsRequested: 1,
       pickupNote: 'Can you pick me up near Sony World Koramangala?',
       status: 'accepted',
@@ -195,7 +195,7 @@ const seedData = async () => {
     console.log('\n======================================================');
     console.log(' Database Seeded Successfully with Academic Demo Data!');
     console.log(' Credentials:');
-    console.log(' 1. Driver (AKASH M R - 2102508522): akash@college.edu / password123');
+    console.log(' 1. Driver (Campus Driver - DRV-2026-001): driver@college.edu / password123');
     console.log(' 2. Passenger (Priya Sharma):         priya@college.edu / password123');
     console.log(' 3. Driver (Rahul Verma):            rahul@college.edu / password123');
     console.log(' 4. Driver (Ananya Rao):             ananya@college.edu / password123');

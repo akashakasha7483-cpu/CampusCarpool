@@ -1,6 +1,6 @@
 /**
  * Route Matcher & Compatibility Scoring Utility
- * Project: CampusCarpool (Student ID: 2102508522 - AKASH M R)
+ * Project: CampusCarpool - Smart Mobility Platform
  *
  * Implements intelligent approximate route matching, waypoint inspection,
  * time window proximity, and seat availability weighting.

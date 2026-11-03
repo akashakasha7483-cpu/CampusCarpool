@@ -2,8 +2,7 @@
 **Futuristic 3D Smart Mobility & Student Ride-Sharing Platform**
 
 > **Move Together. Travel Smarter.**  
-> **Student Name:** AKASH M R  
-> **Student ID:** 2102508522  
+> **Platform:** CampusCarpool Smart Mobility  
 > **Degree Program:** B.Tech / B.E. Information Technology  
 
 ---
@@ -92,7 +91,7 @@ $$\text{Compatibility Score} = (0.50 \times S_{\text{route}}) + (0.25 \times S_{
 - `name` (String, required)
 - `email` (String, unique, lowercase)
 - `password` (Hashed with bcryptjs)
-- `studentId` (String, Roll Number, e.g. `2102508522`)
+- `studentId` (String, Roll Number, e.g. `STU-2026-001`)
 - `department` (String, e.g. `Information Technology`)
 - `phone` (String)
 - `vehicleInfo` (`{ vehicleType, model, registrationNumber }`)
@@ -177,7 +176,7 @@ $$\text{Compatibility Score} = (0.50 \times S_{\text{route}}) + (0.25 \times S_{
    ```env
    PORT=5000
    MONGODB_URI=mongodb://127.0.0.1:27017/campuscarpool
-   JWT_SECRET=campuscarpool_jwt_super_secret_key_2026_akash
+   JWT_SECRET=campuscarpool_jwt_super_secret_key_2026_production
    JWT_EXPIRES_IN=7d
    ```
    *(If you want to use MongoDB Atlas cloud, simply paste your Atlas URI in `backend/.env`)*
@@ -186,7 +185,7 @@ $$\text{Compatibility Score} = (0.50 \times S_{\text{route}}) + (0.25 \times S_{
    ```bash
    npm run seed
    ```
-   *This seeds sample students (including AKASH M R - 2102508522), campus rides, waypoints, and requests.*
+   *This seeds sample students, campus rides, waypoints, and requests.*
 
 4. **Run the Full Application:**
    ```bash
@@ -205,17 +204,17 @@ $$\text{Compatibility Score} = (0.50 \times S_{\text{route}}) + (0.25 \times S_{
 ### Pre-loaded Demo Accounts:
 | Role | Email | Password | Student ID |
 |---|---|---|---|
-| **Driver (Akash M R)** | `akash@college.edu` | `password123` | **2102508522** |
-| **Passenger (Priya Sharma)** | `priya@college.edu` | `password123` | `2102508101` |
-| **Driver (Rahul Verma)** | `rahul@college.edu` | `password123` | `2102508204` |
+| **Driver (Campus Driver)** | `driver@college.edu` | `password123` | `DRV-2026-001` |
+| **Passenger (Priya Sharma)** | `priya@college.edu` | `password123` | `STU-2026-002` |
+| **Driver (Rahul Verma)** | `rahul@college.edu` | `password123` | `DRV-2026-003` |
 
-*(Tip: On the Login page, click **"Fill Driver (Akash)"** or **"Fill Passenger (Priya)"** for instant one-click login!)*
+*(Tip: On the Login page, click **"Fill Demo Driver"** for instant one-click login!)*
 
 ### Key Demonstration Journeys:
 1. **Intelligent Search & Approximate Matching:**
    - Go to **Find Rides**.
    - Search pickup: `Koramangala`, destination: `Campus`.
-   - Notice that Akash's ride (which started at Silk Board but included Koramangala as a waypoint) is discovered with a **~90% Excellent Match** badge!
+   - Notice that the ride (which started at Silk Board but included Koramangala as a waypoint) is discovered with a **~90% Excellent Match** badge!
    - Click the match badge to inspect the mathematical breakdown.
 
 2. **Requesting a Seat:**
@@ -224,7 +223,7 @@ $$\text{Compatibility Score} = (0.50 \times S_{\text{route}}) + (0.25 \times S_{
    - Choose requested seats and add a pickup note. Click **Confirm Request**.
 
 3. **Driver Approval & Concurrency Protection:**
-   - Log in as Driver (`akash@college.edu`).
+   - Log in as Driver (`driver@college.edu`).
    - Go to **Received Requests**.
    - Inspect the passenger's details, department, and contact phone.
    - Click **Accept & Confirm Seat**.
@@ -246,7 +245,5 @@ All 12 validation steps execute against live MongoDB, verifying health, student 
 
 ---
 
-**Academic Project by:**  
-**AKASH M R** &bull; Student ID: **2102508522**  
-*CampusCarpool &copy; 2026*
+**CampusCarpool Platform &bull; Smart Mobility &copy; 2026**
 

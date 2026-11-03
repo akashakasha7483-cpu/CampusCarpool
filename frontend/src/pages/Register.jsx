@@ -58,19 +58,19 @@ const Register = () => {
     }
   };
 
-  // Fast autofill for Project Creator
-  const handleAutofillAkash = () => {
+  // Fast autofill for Demo Student
+  const handleAutofillDemo = () => {
     setFormData({
-      name: 'AKASH M R',
-      email: `akash.${Math.floor(Math.random() * 900 + 100)}@college.edu`,
+      name: 'Campus Commuter',
+      email: `student.${Math.floor(Math.random() * 900 + 100)}@college.edu`,
       password: 'password123',
-      studentId: '2102508522',
+      studentId: 'STU-2026-001',
       department: 'Information Technology',
       phone: '9876543210',
       vehicleType: 'Car',
       model: 'Honda City',
       registrationNumber: 'KA-01-MJ-2026',
-      bio: 'Final year IT student commuting daily via Silk Board and HSR Layout.',
+      bio: 'College student commuting daily via Silk Board and HSR Layout.',
     });
   };
 
@@ -103,12 +103,12 @@ const Register = () => {
 
           <button
             type="button"
-            onClick={handleAutofillAkash}
+            onClick={handleAutofillDemo}
             className="btn btn-outline-green btn-sm"
             style={{ marginTop: '0.75rem' }}
           >
             <Sparkles size={13} />
-            Autofill with Project Student Details (AKASH M R - 2102508522)
+            Autofill with Demo Student Details
           </button>
         </div>
 
@@ -127,7 +127,7 @@ const Register = () => {
                 type="text"
                 name="name"
                 className="form-control"
-                placeholder="e.g. Akash M R"
+                placeholder="e.g. Student Name"
                 value={formData.name}
                 onChange={handleChange}
                 required
@@ -140,7 +140,7 @@ const Register = () => {
                 type="email"
                 name="email"
                 className="form-control"
-                placeholder="akash@college.edu"
+                placeholder="student@college.edu"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -155,7 +155,7 @@ const Register = () => {
                 type="text"
                 name="studentId"
                 className="form-control"
-                placeholder="e.g. 2102508522"
+                placeholder="e.g. STU-2026-001"
                 value={formData.studentId}
                 onChange={handleChange}
                 required

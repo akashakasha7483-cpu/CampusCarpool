@@ -1,6 +1,6 @@
 /**
  * Geographic Coordinate Resolution Helper
- * Project: CampusCarpool (Student ID: 2102508522 - AKASH M R)
+ * Project: CampusCarpool - Smart Mobility Platform
  *
  * Provides accurate WGS-84 decimal coordinates [longitude, latitude] for common
  * college hubs, metro stations, transit junctions, and campus gates.

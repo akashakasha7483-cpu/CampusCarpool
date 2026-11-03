@@ -61,10 +61,10 @@ async function test3DRoutes() {
 
   // 2. Login to test vehicle garage profile update
   const loginRes = await request('POST', '/api/auth/login', {
-    email: 'akash@college.edu',
+    email: 'driver@college.edu',
     password: 'password123',
   });
-  if (loginRes.status !== 200) throw new Error('Could not log in as Akash');
+  if (loginRes.status !== 200) throw new Error('Could not log in as driver');
   const token = loginRes.data.token;
 
   // 3. Update Garage Vehicle to Cyber Bike

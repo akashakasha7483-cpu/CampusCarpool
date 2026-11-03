@@ -59,16 +59,15 @@ async function verifyAll() {
 
   console.log('\n======================================================');
   console.log(' CAMPUSCARPOOL COMPREHENSIVE FINAL VERIFICATION SUITE ');
-  console.log(' Student: AKASH M R (ID: 2102508522)                  ');
   console.log('======================================================\n');
 
   try {
-    // 1. Health check & DB connection
+    // 1. Health check & DB connection (Privacy verified: no student data exposed)
     const health = await request('GET', '/api/health');
     assert(
-      health.status === 200 && health.data?.database?.connected === true,
-      'System Health & MongoDB Connectivity Check',
-      `Status: ${health.status}, DB Connected: ${health.data?.database?.connected}`
+      health.status === 200 && health.data?.database?.connected === true && health.data?.student === undefined,
+      'System Health & Privacy Check (No student data in health API)',
+      `Status: ${health.status}, DB Connected: ${health.data?.database?.connected}, Student Exposed: ${health.data?.student !== undefined}`
     );
 
     // 2. Existing database persistence check (Ensure no data loss)

@@ -1,6 +1,5 @@
 /**
  * CampusCarpool Unified Runner
- * Student: AKASH M R (ID: 2102508522)
  *
  * Launches Express Backend (Port 5000) and Vite Frontend (Port 5173) concurrently.
  */
@@ -9,9 +8,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 
 console.log('=================================================================');
-console.log('              CAMPUSCARPOOL - COLLEGE ACADEMIC PROJECT            ');
-console.log('                  Student Name: AKASH M R                         ');
-console.log('                  Student ID:   2102508522                        ');
+console.log('              CAMPUSCARPOOL - SMART MOBILITY PLATFORM             ');
 console.log('=================================================================\n');
 
 const isWin = process.platform === 'win32';

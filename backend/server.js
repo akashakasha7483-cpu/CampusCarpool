@@ -30,16 +30,12 @@ app.use(cors({
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Project Metadata & Health Check
+// Technical Health Check
 app.get('/api/health', (req, res) => {
   const isDbConnected = mongoose.connection.readyState === 1;
   res.status(isDbConnected ? 200 : 503).json({
     status: isDbConnected ? 'healthy' : 'degraded',
     project: 'CampusCarpool',
-    student: {
-      name: 'AKASH M R',
-      studentId: '2102508522',
-    },
     database: {
       connected: isDbConnected,
       name: mongoose.connection.name || 'campuscarpool',
@@ -71,7 +67,6 @@ const startServer = async () => {
     app.listen(PORT, () => {
       console.log(`====================================================`);
       console.log(` CampusCarpool Server Running on Port ${PORT}`);
-      console.log(` Student: AKASH M R (ID: 2102508522)`);
       console.log(` Health check: http://localhost:${PORT}/api/health`);
       console.log(`====================================================`);
     });

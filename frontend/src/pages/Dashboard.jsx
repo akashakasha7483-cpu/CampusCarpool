@@ -448,14 +448,14 @@ export const Dashboard = () => {
                     color: '#062619',
                   }}
                 >
-                  {user?.name ? user.name.charAt(0).toUpperCase() : 'A'}
+                  {user?.name ? user.name.charAt(0).toUpperCase() : 'S'}
                 </div>
                 <div>
                   <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#f8fafc', lineHeight: 1 }}>
-                    {user?.name || 'AKASH M R'}
+                    {user?.name || 'Student Driver'}
                   </div>
                   <span style={{ fontSize: '0.65rem', color: '#34d399', fontWeight: 700 }}>
-                    ID: {user?.studentId || '2102508522'}
+                    ID: {user?.studentId || 'VERIFIED'}
                   </span>
                 </div>
               </div>
@@ -912,7 +912,7 @@ export const Dashboard = () => {
                         Verified Student Badge Active
                       </div>
                       <span style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
-                        Trust Rating: {user?.rating || '4.8'}/5.0 &bull; Akash M R
+                        Trust Rating: {user?.rating || '4.8'}/5.0 &bull; Verified Member
                       </span>
                     </div>
                   </div>

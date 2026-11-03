@@ -104,7 +104,7 @@ export const Home = () => {
             }}
           >
             <Sparkles size={14} />
-            <span>FUTURISTIC 3D SMART MOBILITY &bull; AKASH M R (2102508522)</span>
+            <span>FUTURISTIC 3D SMART MOBILITY &bull; SUSTAINABLE CAMPUS TRANSIT</span>
           </div>
 
           <h1
