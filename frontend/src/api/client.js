@@ -1,5 +1,30 @@
-const RAW_API_URL = import.meta.env.VITE_API_URL || '';
-const API_BASE = RAW_API_URL ? `${RAW_API_URL.replace(/\/$/, '')}/api` : '/api';
+// Normalize API base URL across local development and Render production
+function getApiBaseUrl() {
+  const raw = (import.meta.env.VITE_API_URL || '').trim();
+  if (!raw) {
+    return '/api';
+  }
+
+  // Prepend protocol if Render provides only a bare hostname
+  let url = raw;
+  if (!/^https?:\/\//i.test(url)) {
+    url = url.startsWith('localhost') || url.startsWith('127.0.0.1')
+      ? `http://${url}`
+      : `https://${url}`;
+  }
+
+  // Strip trailing slashes
+  url = url.replace(/\/+$/, '');
+
+  // Avoid duplicate /api prefix
+  if (!url.endsWith('/api')) {
+    url = `${url}/api`;
+  }
+
+  return url;
+}
+
+const API_BASE = getApiBaseUrl();
 
 async function request(endpoint, { method = 'GET', body, token } = {}) {
   const headers = {

@@ -32,15 +32,16 @@ app.use(morgan('dev'));
 
 // Project Metadata & Health Check
 app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    status: 'healthy',
+  const isDbConnected = mongoose.connection.readyState === 1;
+  res.status(isDbConnected ? 200 : 503).json({
+    status: isDbConnected ? 'healthy' : 'degraded',
     project: 'CampusCarpool',
     student: {
       name: 'AKASH M R',
       studentId: '2102508522',
     },
     database: {
-      connected: mongoose.connection.readyState === 1,
+      connected: isDbConnected,
       name: mongoose.connection.name || 'campuscarpool',
     },
     serverTime: new Date().toISOString(),

@@ -82,9 +82,10 @@ const connectDB = async () => {
 
   try {
     await mongoose.connect(mongoUri, {
-      serverSelectionTimeoutMS: 4000,
+      dbName: 'campuscarpool',
+      serverSelectionTimeoutMS: 15000,
     });
-    console.log(`[Database] MongoDB Connected Successfully: ${mongoose.connection.host}`);
+    console.log(`[Database] MongoDB Connected Successfully: ${mongoose.connection.host} (Database: ${mongoose.connection.name})`);
   } catch (initialErr) {
     console.warn(`[Database] Direct connection to MongoDB failed: ${initialErr.message}`);
 
@@ -94,8 +95,11 @@ const connectDB = async () => {
       const started = await spawnLocalMongod(27017);
       if (started) {
         try {
-          await mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 5000 });
-          console.log(`[Database] MongoDB Connected Successfully after local start: ${mongoose.connection.host}`);
+          await mongoose.connect(mongoUri, {
+            dbName: 'campuscarpool',
+            serverSelectionTimeoutMS: 5000,
+          });
+          console.log(`[Database] MongoDB Connected Successfully after local start: ${mongoose.connection.host} (Database: ${mongoose.connection.name})`);
           return;
         } catch (retryErr) {
           console.error('[Database] Retry connection after spawn failed:', retryErr.message);
