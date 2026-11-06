@@ -14,5 +14,17 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    chunkSizeWarningLimit: 900,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
+          'vendor-map': ['maplibre-gl'],
+          'vendor-motion': ['framer-motion', 'gsap'],
+        },
+      },
+    },
+  },
 });
 

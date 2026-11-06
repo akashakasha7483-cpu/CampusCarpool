@@ -30,3 +30,7 @@ frontend/.env*.local
 Thumbs.db
 .vscode/
 .idea/
+
+# Temporary visual QA captures and scratch scripts
+/*.png
+scratch/

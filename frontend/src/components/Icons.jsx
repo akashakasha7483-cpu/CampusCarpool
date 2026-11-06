@@ -412,3 +412,64 @@ export const ChevronDown = (props) => (
     <polyline points="6 9 12 15 18 9" />
   </BaseIcon>
 );
+
+export const ChevronRight = (props) => (
+  <BaseIcon {...props}>
+    <polyline points="9 18 15 12 9 6" />
+  </BaseIcon>
+);
+
+export const LayoutGrid = (props) => (
+  <BaseIcon {...props}>
+    <rect width="7" height="7" x="3" y="3" rx="1" />
+    <rect width="7" height="7" x="14" y="3" rx="1" />
+    <rect width="7" height="7" x="14" y="14" rx="1" />
+    <rect width="7" height="7" x="3" y="14" rx="1" />
+  </BaseIcon>
+);
+
+export const List = (props) => (
+  <BaseIcon {...props}>
+    <line x1="8" x2="21" y1="6" y2="6" />
+    <line x1="8" x2="21" y1="12" y2="12" />
+    <line x1="8" x2="21" y1="18" y2="18" />
+    <line x1="3" x2="3.01" y1="6" y2="6" />
+    <line x1="3" x2="3.01" y1="12" y2="12" />
+    <line x1="3" x2="3.01" y1="18" y2="18" />
+  </BaseIcon>
+);
+
+export const Play = (props) => (
+  <BaseIcon {...props}>
+    <polygon points="5 3 19 12 5 21 5 3" />
+  </BaseIcon>
+);
+
+export const Pause = (props) => (
+  <BaseIcon {...props}>
+    <rect x="6" y="4" width="4" height="16" />
+    <rect x="14" y="4" width="4" height="16" />
+  </BaseIcon>
+);
+
+export const Maximize2 = (props) => (
+  <BaseIcon {...props}>
+    <polyline points="15 3 21 3 21 9" />
+    <polyline points="9 21 3 21 3 15" />
+    <line x1="21" y1="3" x2="14" y2="10" />
+    <line x1="3" y1="21" x2="10" y2="14" />
+  </BaseIcon>
+);
+
+export const Check = (props) => (
+  <BaseIcon {...props}>
+    <polyline points="20 6 9 17 4 12" />
+  </BaseIcon>
+);
+
+export const MessageSquare = (props) => (
+  <BaseIcon {...props}>
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+  </BaseIcon>
+);
+

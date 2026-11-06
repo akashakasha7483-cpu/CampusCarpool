@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserPlus, AlertCircle, CheckCircle2, Car, Sparkles } from '../components/Icons';
+import { UserPlus, AlertCircle, CheckCircle2, Car, Sparkles, User, Mail, Lock, Phone, BookOpen, ShieldCheck } from '../components/Icons';
 import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
@@ -75,54 +75,73 @@ const Register = () => {
   };
 
   return (
-    <div style={{ maxWidth: '640px', margin: '2rem auto' }}>
-      <div className="card" style={{ padding: '2.5rem 2rem' }}>
+    <div style={{ maxWidth: '720px', margin: '2rem auto 4rem', padding: '0 1rem' }}>
+      <div
+        className="card"
+        style={{
+          padding: '2.5rem',
+          background: 'linear-gradient(180deg, #111C2E 0%, #0D1626 100%)',
+          border: '1px solid rgba(255, 255, 255, 0.09)',
+          boxShadow: '0 16px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(16, 185, 129, 0.1)',
+        }}
+      >
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div
             style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%)',
+              width: '52px',
+              height: '52px',
+              borderRadius: '14px',
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
               color: '#ffffff',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              margin: '0 auto 1rem',
-              boxShadow: '0 8px 16px rgba(15, 23, 42, 0.25)',
+              margin: '0 auto 1.25rem',
+              boxShadow: '0 0 20px rgba(16, 185, 129, 0.45)',
             }}
           >
-            <UserPlus size={24} />
+            <UserPlus size={26} />
           </div>
-          <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0f172a' }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.02em' }}>
             Student Registration
           </h2>
-          <p style={{ color: '#64748b', fontSize: '0.88rem', marginTop: '0.35rem' }}>
-            Join CampusCarpool with your college roll number
+          <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginTop: '0.35rem' }}>
+            Create your account on the verified CampusCarpool smart mobility network
           </p>
 
           <button
             type="button"
             onClick={handleAutofillDemo}
             className="btn btn-outline-green btn-sm"
-            style={{ marginTop: '0.75rem' }}
+            style={{ marginTop: '1rem', fontSize: '0.8rem' }}
           >
-            <Sparkles size={13} />
-            Autofill with Demo Student Details
+            <Sparkles size={14} />
+            Autofill Demo Student Credentials
           </button>
         </div>
 
         {error && (
-          <div className="alert alert-error">
+          <div className="alert alert-error" style={{ marginBottom: '1.5rem' }}>
             <AlertCircle size={18} />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit}>
+          {/* SECTION 1: CREDENTIALS */}
+          <div className="saas-form-section-header" style={{ marginBottom: '1.25rem' }}>
+            <div className="saas-stat-icon-wrap" style={{ width: '30px', height: '30px' }}>
+              <User size={15} />
+            </div>
+            <div>
+              <h3 style={{ fontSize: '1rem' }}>1. Basic & College Credentials</h3>
+              <p style={{ fontSize: '0.78rem' }}>Enter your real campus name and college email</p>
+            </div>
+          </div>
+
           <div className="form-grid">
             <div className="form-group">
-              <label className="form-label">Full Name *</label>
+              <label className="form-label" style={{ color: '#cbd5e1' }}>Full Name *</label>
               <input
                 type="text"
                 name="name"
@@ -135,7 +154,7 @@ const Register = () => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">College Email *</label>
+              <label className="form-label" style={{ color: '#cbd5e1' }}>College Email *</label>
               <input
                 type="email"
                 name="email"
@@ -150,7 +169,7 @@ const Register = () => {
 
           <div className="form-grid">
             <div className="form-group">
-              <label className="form-label">Student ID / Roll No *</label>
+              <label className="form-label" style={{ color: '#cbd5e1' }}>Student ID / Roll No *</label>
               <input
                 type="text"
                 name="studentId"
@@ -163,7 +182,7 @@ const Register = () => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Password * (Min 6 chars)</label>
+              <label className="form-label" style={{ color: '#cbd5e1' }}>Password * (Min 6 chars)</label>
               <input
                 type="password"
                 name="password"
@@ -179,7 +198,7 @@ const Register = () => {
 
           <div className="form-grid">
             <div className="form-group">
-              <label className="form-label">Department / Branch</label>
+              <label className="form-label" style={{ color: '#cbd5e1' }}>Department / Branch</label>
               <select
                 name="department"
                 className="form-control"
@@ -196,7 +215,7 @@ const Register = () => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Phone Number</label>
+              <label className="form-label" style={{ color: '#cbd5e1' }}>Phone Number</label>
               <input
                 type="tel"
                 name="phone"
@@ -208,34 +227,35 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Vehicle Information */}
+          {/* SECTION 2: VEHICLE DETAILS */}
           <div
             style={{
-              background: '#f8fafc',
+              background: 'rgba(8, 13, 24, 0.75)',
               padding: '1.25rem',
               borderRadius: '12px',
-              border: '1px solid #e2e8f0',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
               marginBottom: '1.5rem',
+              marginTop: '0.75rem',
             }}
           >
             <h4
               style={{
                 fontSize: '0.95rem',
                 fontWeight: 700,
-                color: '#0f172a',
+                color: '#f8fafc',
                 marginBottom: '1rem',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
               }}
             >
-              <Car size={18} color="#10b981" />
+              <Car size={16} color="#10b981" />
               Vehicle Information (For Drivers)
             </h4>
 
             <div className="form-grid">
               <div className="form-group">
-                <label className="form-label">Vehicle Type</label>
+                <label className="form-label" style={{ color: '#cbd5e1' }}>Vehicle Type</label>
                 <select
                   name="vehicleType"
                   className="form-control"
@@ -252,7 +272,7 @@ const Register = () => {
               {formData.vehicleType !== 'None' && (
                 <>
                   <div className="form-group">
-                    <label className="form-label">Vehicle Model</label>
+                    <label className="form-label" style={{ color: '#cbd5e1' }}>Vehicle Model</label>
                     <input
                       type="text"
                       name="model"
@@ -264,7 +284,7 @@ const Register = () => {
                   </div>
 
                   <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                    <label className="form-label">Registration Number</label>
+                    <label className="form-label" style={{ color: '#cbd5e1' }}>Registration Plate Number</label>
                     <input
                       type="text"
                       name="registrationNumber"
@@ -279,8 +299,8 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Short Commute Bio</label>
+          <div className="form-group" style={{ marginBottom: '1.75rem' }}>
+            <label className="form-label" style={{ color: '#cbd5e1' }}>Short Commute Bio</label>
             <textarea
               name="bio"
               className="form-control"
@@ -294,16 +314,16 @@ const Register = () => {
           <button
             type="submit"
             className="btn btn-primary"
-            style={{ width: '100%', padding: '0.85rem' }}
+            style={{ width: '100%', padding: '0.85rem', fontSize: '1rem', fontWeight: 800 }}
             disabled={loading}
           >
             {loading ? 'Registering Account...' : 'Complete Registration'}
           </button>
         </form>
 
-        <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.88rem', color: '#64748b' }}>
+        <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.86rem', color: '#94a3b8' }}>
           Already registered?{' '}
-          <Link to="/login" style={{ color: '#10b981', fontWeight: 700 }}>
+          <Link to="/login" style={{ color: '#34d399', fontWeight: 700 }}>
             Sign In Here
           </Link>
         </p>
